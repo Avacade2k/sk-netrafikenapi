@@ -8,14 +8,12 @@
 <title>Skånetrafiken API</title>
 </head>
 <body>
-
-   <form action="SkaneApi" method="get">  
-    City:<input type="text" name="city"/><br/>  
-    Bus stop:<input type="text" name="busstop"/><br/>  
+	Find bus stop<br>
+	<form action="SkaneApi" method="get">  
+    City:<input type="text" name="city"/><br/>    
     
     <input type="submit" value="go"/>  
     </form>  
-
 
 </body>
 </html>

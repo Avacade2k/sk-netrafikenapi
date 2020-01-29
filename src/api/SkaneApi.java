@@ -50,13 +50,71 @@ public class SkaneApi extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String cityStr = request.getParameter("city");
 		out.print("<br>");
-		out.print("City= " + cityStr);
+		out.print("From: " + cityStr);
 
 		out.print("<br>");
+		
+		String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=" + cityStr;
 
-		String busStr = request.getParameter("busstop");
-		out.print("Bus stop= " + busStr);
-		out.print("<br>");
+		System.out.println(URLtoSend);
+
+		// Set the URL that will be sent
+		URL line_api_url = new URL(URLtoSend);
+
+		// Create a HTTP connection to sent the GET request over
+		HttpURLConnection linec = (HttpURLConnection) line_api_url.openConnection();
+		linec.setDoInput(true);
+		linec.setDoOutput(true);
+		linec.setRequestMethod("GET");
+
+		// Make a Buffer to read the response from the API
+		BufferedReader in = new BufferedReader(new InputStreamReader(linec.getInputStream()));
+
+		// a String to temp save each line in the response
+		String inputLine;
+
+		// a String to save the full response to use later
+		String ApiResponse = "";
+
+		// loop through the whole response
+		while ((inputLine = in.readLine()) != null) {
+			
+			//System.out.println(inputLine);
+			// Save the temp line into the full response
+			ApiResponse += inputLine;
+		}
+		in.close();
+		System.out.println(ApiResponse);
+		
+		
+		//Call a method to make a XMLdoc out of the full response
+		Document doc = convertStringToXMLDocument(ApiResponse);
+
+		
+		//normalize the XML response
+		doc.getDocumentElement().normalize();
+		// check that the XML response is OK by getting the Root element 
+		System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+		
+		// Create a Node list that gets everything in and under the "name" tag  
+		NodeList nList = doc.getElementsByTagName("Point");
+		out.print("Bus stops within range of " + cityStr + " are: <br>");
+		
+		// loop through the content of the tag
+		for (int points = 0; points < nList.getLength(); points++) {
+			// Save a node of the current list id 
+			Node node = nList.item(points);
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+
+				// set the current node as an Element
+				Element eElement = (Element) node;
+				// get the content of an attribute in element
+				// and print it out to the client 
+				out.print(eElement.getAttribute("Name") + "<br>");
+
+			}
+		}
+
 	}
 
 	/**
@@ -65,6 +123,25 @@ public class SkaneApi extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	private static Document convertStringToXMLDocument(String xmlString) {
+		// Parser that produces DOM object trees from XML content
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+		// API to obtain DOM Document instance
+		DocumentBuilder builder = null;
+		try {
+			// Create DocumentBuilder with default configuration
+			builder = factory.newDocumentBuilder();
+
+			// Parse the content to Document object
+			Document doc = builder.parse(new InputSource(new StringReader(xmlString)));
+			return doc;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
