@@ -11,6 +11,7 @@ import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +47,8 @@ public class SkaneApi extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
 		
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
@@ -121,7 +124,25 @@ public class SkaneApi extends HttpServlet {
 
 			}
 		}
+			//Här läggs kakan till
+		try {
 
+			response.setContentType("text/html");
+			
+
+			String city = request.getParameter("city");
+			out.print("Your city: " + city);
+
+			Cookie kaka = new Cookie("cityName", city);
+			kaka.setMaxAge(60*60);
+			response.addCookie(kaka);
+
+			
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 	}
 
 	/**

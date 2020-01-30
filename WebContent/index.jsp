@@ -9,13 +9,10 @@
 <title>Skånetrafiken API</title>
 </head>
 <body>
-
 <h1>
 	Find bus stop<br>
 </h1>
-
 <h3>
-
 	<form action="SkaneApi" method="get">  
     
     <p>
@@ -27,6 +24,12 @@
     </form>
       
 </h3>
+
+<!-- Cookie notifierare -->
+<script type="text/javascript" id="cookieinfo"
+	src="//cookieinfoscript.com/js/cookieinfo.min.js">
+</script>
+
 
 </body>
 </html>
