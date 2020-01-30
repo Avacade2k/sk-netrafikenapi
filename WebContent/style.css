@@ -1,8 +1,8 @@
 body
 {
-background-color:#d0e4fe;
+background-color:#e8e8e8;
 }
-h1
+h3
 {
 font-family:"Times New Roman";
 color:black;
@@ -20,4 +20,11 @@ font-family:"Times New Roman";
 font-size:15px;
 text-align:center;
 font-weight:normal;
+}
+h1
+{
+background-color:#b81818;
+text-align:center;
+color:white;
+font-size:20px;
 }

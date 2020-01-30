@@ -12,7 +12,10 @@
 
 <h1>
 	Find bus stop<br>
-	
+</h1>
+
+<h3>
+
 	<form action="SkaneApi" method="get">  
     
     <p>
@@ -23,7 +26,7 @@
     
     </form>
       
-</h1>
+</h3>
 
 </body>
 </html>
