@@ -1,5 +1,6 @@
 package api;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -48,6 +49,7 @@ public class Stationresult extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String stopId = request.getParameter("id");
+		out.println("<LINK REL=\"StyleSheet\" HREF=\"style.css\" TYPE=\"text/css\">");
 		out.print("<br>");
 		out.print("From: " + stopId);
 
