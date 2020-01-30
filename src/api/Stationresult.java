@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -23,18 +22,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-
 /**
- * Servlet implementation class SkaneApi
+ * Servlet implementation class Stationresult
  */
-@WebServlet("/SkaneApi")
-public class SkaneApi extends HttpServlet {
+@WebServlet("/Stationresult")
+public class Stationresult extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SkaneApi() {
+    public Stationresult() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,13 +47,13 @@ public class SkaneApi extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		String cityStr = request.getParameter("city");
+		String stopId = request.getParameter("value");
 		out.print("<br>");
-		out.print("From: " + cityStr);
+		out.print("From: " + stopId);
 
 		out.print("<br>");
 		
-		String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=" + cityStr;
+		String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/stationresults.asp?selPointFrKey=" + stopId;
 
 		System.out.println(URLtoSend);
 
@@ -99,7 +97,7 @@ public class SkaneApi extends HttpServlet {
 		
 		// Create a Node list that gets everything in and under the "name" tag  
 		NodeList nList = doc.getElementsByTagName("Point");
-		out.print("Bus stops within range of " + cityStr + " are: <br>");
+		out.print(stopId + " departures: <br>");
 		
 		// loop through the content of the tag
 		for (int points = 0; points < nList.getLength(); points++) {
@@ -111,10 +109,8 @@ public class SkaneApi extends HttpServlet {
 				Element eElement = (Element) node;
 				// get the content of an attribute in element
 				// and print it out to the client 
-				out.print("<form action=Stationresult method=get>");
 				out.print(eElement.getElementsByTagName("Name").item(0).getTextContent() + "<br>");
-				out.print("<button type=submit value="+ eElement.getElementsByTagName("Id").item(0).getTextContent() +"><br>");
-				out.print("</form>");
+
 
 			}
 		}
@@ -149,4 +145,3 @@ public class SkaneApi extends HttpServlet {
 	}
 
 }
-
