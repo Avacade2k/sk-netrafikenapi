@@ -47,7 +47,7 @@ public class Stationresult extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		String stopId = request.getParameter("value");
+		String stopId = request.getParameter("id");
 		out.print("<br>");
 		out.print("From: " + stopId);
 
@@ -96,13 +96,13 @@ public class Stationresult extends HttpServlet {
 		System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 		
 		// Create a Node list that gets everything in and under the "name" tag  
-		NodeList nList = doc.getElementsByTagName("Point");
+		NodeList nList = doc.getElementsByTagName("Line");
 		out.print(stopId + " departures: <br>");
 		
 		// loop through the content of the tag
-		for (int points = 0; points < nList.getLength(); points++) {
+		for (int lines = 0; lines < nList.getLength(); lines++) {
 			// Save a node of the current list id 
-			Node node = nList.item(points);
+			Node node = nList.item(lines);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 
 				// set the current node as an Element

@@ -113,7 +113,8 @@ public class SkaneApi extends HttpServlet {
 				// and print it out to the client 
 				out.print("<form action=Stationresult method=get>");
 				out.print(eElement.getElementsByTagName("Name").item(0).getTextContent() + "<br>");
-				out.print("<button type=submit value="+ eElement.getElementsByTagName("Id").item(0).getTextContent() +"><br>");
+				String busstopId = eElement.getElementsByTagName("Id").item(0).getTextContent();
+				out.print("<input type=submit id="+ busstopId +" value=Check><br>");
 				out.print("</form>");
 
 			}
