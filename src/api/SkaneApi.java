@@ -47,6 +47,7 @@ public class SkaneApi extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String cityStr = request.getParameter("city");
 		out.print("<br>");
@@ -110,7 +111,7 @@ public class SkaneApi extends HttpServlet {
 				Element eElement = (Element) node;
 				// get the content of an attribute in element
 				// and print it out to the client 
-				out.print(eElement.getAttribute("Name") + "<br>");
+				out.print(eElement.getTextContent() + "<br>");
 
 			}
 		}
