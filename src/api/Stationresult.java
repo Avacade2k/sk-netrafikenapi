@@ -48,7 +48,7 @@ public class Stationresult extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		String stopId = request.getParameter("id");
+		String stopId = request.getParameter("name");
 		out.println("<LINK REL=\"StyleSheet\" HREF=\"style.css\" TYPE=\"text/css\">");
 		out.print("<br>");
 		out.print("From: " + stopId);
